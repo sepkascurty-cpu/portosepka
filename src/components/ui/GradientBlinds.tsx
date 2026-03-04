@@ -40,12 +40,15 @@ const GradientBlinds = ({
   shineDirection = 'left',
   mixBlendMode = 'lighten'
 }: any) => {
-  const containerRef = useRef(null);
-  const rafRef = useRef(null);
-  const programRef = useRef(null);
-  const meshRef = useRef(null);
-  const geometryRef = useRef(null);
-  const rendererRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<any>(null);
+  const programRef = useRef<any>(null);
+  const meshRef = useRef<any>(null);
+  const geometryRef = useRef<any>(null);
+  
+  // BAGIAN YANG DIUBAH: Kita beri tipe <any> agar tidak dianggap null saja
+  const rendererRef = useRef<any>(null); 
+  
   const mouseTargetRef = useRef([0, 0]);
   const lastTimeRef = useRef(0);
   const firstResizeRef = useRef(true);
@@ -59,6 +62,7 @@ const GradientBlinds = ({
       alpha: true,
       antialias: true
     });
+    
     rendererRef.current = renderer;
     const gl = renderer.gl;
     const canvas = gl.canvas;

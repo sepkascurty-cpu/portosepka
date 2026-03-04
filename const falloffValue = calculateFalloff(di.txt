@@ -1,0 +1,58 @@
+const falloffValue = calculateFalloff(distance);
+      const newSettings = parsedSettings
+        .map(({ axis, fromValue, toValue }) => {
+          const interpolatedValue = fromValue + (toValue - fromValue) * falloffValue;
+          return `'${axis}' ${interpolatedValue}`;
+        })
+        .join(', ');
+
+      interpolatedSettingsRef.current[index] = newSettings;
+      letterRef.style.fontVariationSettings = newSettings;
+    });
+  });
+
+  const words = label.split(' ');
+  let letterIndex = 0;
+
+  return (
+    <span
+      ref={ref}
+      onClick={onClick}
+      style={{
+        display: 'inline',
+        fontFamily: '"Roboto Flex", sans-serif',
+        ...style
+      }}
+      className={className}
+      {...restProps}
+    >
+      {words.map((word, wordIndex) => (
+        <span key={wordIndex} className="inline-block whitespace-nowrap">
+          {word.split('').map(letter => {
+            const currentLetterIndex = letterIndex++;
+            return (
+              <motion.span
+                key={currentLetterIndex}
+                ref={el => {
+                  letterRefs.current[currentLetterIndex] = el;
+                }}
+                style={{
+                  display: 'inline-block',
+                  fontVariationSettings: interpolatedSettingsRef.current[currentLetterIndex]
+                }}
+                aria-hidden="true"
+              >
+                {letter}
+              </motion.span>
+            );
+          })}
+          {wordIndex < words.length - 1 && <span className="inline-block">&nbsp;</span>}
+        </span>
+      ))}
+      <span className="sr-only">{label}</span>
+    </span>
+  );
+});
+
+VariableProximity.displayName = 'VariableProximity';
+export default VariableProximity;

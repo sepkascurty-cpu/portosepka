@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #000000;
+  --color-graphite: #111111;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  /* Disable pull-to-refresh on mobile specifically */
+  overscroll-behavior-y: none;
+}
+
+/* Grain texture overlay */
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  mix-blend-mode: overlay;
+}
+
+/* Hide scrollbar completely for pure aesthetic */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
